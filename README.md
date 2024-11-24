@@ -1,6 +1,6 @@
-# RevAIwer
+# UpFrontAI
 
-RevAIwer is an innovative application designed to assist users in comparing movies based on ratings, prices, and other metrics. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), RevAIwer provides insightful summaries and scores for movies based on both critic and audience reviews.
+UpFrontAI is an innovative serverless application designed to assist users in comparing movies based on ratings, prices, and other metrics. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), RevAIwer provides insightful summaries and scores for movies based on both critic and audience reviews.
 
 ---
 
@@ -51,13 +51,18 @@ RevAIwer is an innovative application designed to assist users in comparing movi
 - AWS Bedrock Runtime for AI integration
 
 ### Frontend
-- React (with App.tsx as a core file)
+- React (typescript) + CSS
 - Responsive UI for user-friendly experience
 
 ### AI Models
 - Meta Llama 3 for summarization
 - Custom algorithms for scoring and analysis
 
+### The Future Enhancements
+- Include support for TV shows and additional media formats.
+- Enable personalized recommendations using user profiles.
+- Expand data sources for a broader range of reviews.
+- Enhance scoring algorithms with advanced ML models.
 ---
 
 ## Installation
@@ -73,3 +78,9 @@ RevAIwer is an innovative application designed to assist users in comparing movi
    ```bash
    git clone https://github.com/your-repo/revaiwer.git
    cd revaiwer/backend
+
+License
+This project is licensed under the MIT License. Feel free to use and modify the application.
+
+Contact
+For inquiries, reach out to Afonso Carvalho or Diogo Gouveia.
