@@ -20,7 +20,7 @@ import { Chart as ChartJS,
 const dummyData: { [key: string]: { image: string; title: string, year: string } } = { avengers_endgame: { image: avengersImage, title: "Avengers End Game", year: "2019" }, now_you_see_me: { image: nowYouSee, title: "Now You See Me", year: "2013" } };
 
 
-
+const AWS_API = process.env.AWS_API_URL
 
 function App() {
   const [inputValue, setInputValue] = useState("");
@@ -81,7 +81,7 @@ const options = {
       setIsLoading(true); // Set loading state to true
       setIsMoved(false); // Reset input-container movement
       const res = await axios.post(
-        {"YOUR_API_URL"},
+         AWS_API|| "your_default_api_url",
         { url: inputValue },
         { headers: { "Content-Type": "application/json" } }
       );
