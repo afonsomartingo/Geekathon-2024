@@ -1,6 +1,6 @@
 # UpfrontAI
 
-UpfrontAI is an innovative serverless application designed to assist users in comparing movies based on ratings, prices, and other metrics developed for the geekathon2024. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), UpfrontAI provides insightful summaries and scores for movies based on reviews.
+UpfrontAI is an innovative serverless application designed to assist users in comparing movies based on ratings, prices, and other metrics developed for the geekathon2024. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), UpfrontAI provides insightful summaries and scores for movies based on reviews so you do not waste time scrolling through all the reviews!
 
 ---
 
