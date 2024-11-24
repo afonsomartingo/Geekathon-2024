@@ -1,4 +1,3 @@
-import os
 import json
 import requests
 from bs4 import BeautifulSoup
@@ -9,23 +8,6 @@ import random
 from insights import retrieve_and_generate  
 import boto3
 
-# Retrieve sensitive variables from environment variables
-AWS_DEFAULT_REGION = os.getenv("AWS_DEFAULT_REGION", "us-west-2")
-AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-AWS_SESSION_TOKEN = os.getenv("AWS_SESSION_TOKEN")
-
-# Configure AWS session
-session = boto3.Session(
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    aws_session_token=AWS_SESSION_TOKEN,
-    region_name=AWS_DEFAULT_REGION
-)
-
-# Initialize boto3 client for Bedrock Runtime
-boto_runtime = session.client('bedrock-runtime', region_name=AWS_DEFAULT_REGION)
-
 def save_reviews_to_file(reviews, filename="reviews_summary.txt"):
     """
     Save reviews and summary to a text file.
@@ -34,6 +16,7 @@ def save_reviews_to_file(reviews, filename="reviews_summary.txt"):
         for review in reviews:
             file.write(f"{review}\n\n")
     print(f"Reviews saved to {filename}")
+
 
 def scrapper_BeautifulSoup(url, class_name):
     """
@@ -97,44 +80,48 @@ def lambda_handler(event, context):
         movie_name = req_data.get("url")
         print(f"Received Movie Name: {movie_name}")
 
+        movies = movie_name.split(",")
+
         if not movie_name:
             return {
                 'statusCode': 400,
                 'body': json.dumps("Error: 'url' field is required in the event input.")
             }
 
-        # Scrape critic reviews
-        critic_reviews = scrapper_BeautifulSoup(
-            f"https://www.rottentomatoes.com/m/{movie_name}/reviews", 
-            "review-text"
-        )
-
-        # Scrape public reviews
-        audience_reviews = scrapper_BeautifulSoup(
-            f"https://www.rottentomatoes.com/m/{movie_name}/reviews?type=user", 
-            "audience-reviews__review"
-        )
-
-        total_rating = 0
-        price = random.uniform(1, 60)
-        
-        # Combine reviews
-        critic_reviews.extend(audience_reviews)
-        all_reviews = critic_reviews
-        print(f"Total Reviews Scraped: {len(all_reviews)}")
         dict_reviews = defaultdict(list)
         dict_reviews["reviews"] = []
-        dict_review = {}
-        for i in range(len(all_reviews)):
-            dict_review = {}  # Initialize a new dictionary for each review
-            dict_review["product_id"] = movie_name  # Assuming 'product_id' exists in your reviews
-            dict_review["id"] = i + 1  # Assign an incremental ID starting from 1
-            dict_review["review"] = all_reviews[i]
-            dict_reviews["reviews"].append(dict_review)
+        # Scrape critic reviews
+        for m in movies:
+            critic_reviews = scrapper_BeautifulSoup(
+                f"https://www.rottentomatoes.com/m/{m}/reviews", 
+                "review-text"
+            )
 
-            total_rating += random.uniform(1, 10)
+            # Scrape public reviews
+            audience_reviews = scrapper_BeautifulSoup(
+                f"https://www.rottentomatoes.com/m/{m}/reviews?type=user", 
+                "audience-reviews__review"
+            )
 
-        print(dict_reviews["reviews"][0])
+            total_rating=0
+            price = random.uniform(1, 60)
+            
+            # Combine reviews
+            critic_reviews.extend(audience_reviews)
+            all_reviews = critic_reviews
+            print(f"Total Reviews Scraped: {len(all_reviews)}")
+            
+            dict_review = {}
+            for i in range(len(all_reviews)):
+                dict_review = {}  # Initialize a new dictionary for each review
+                dict_review["product_id"] = m  # Assuming 'product_id' exists in your reviews
+                dict_review["id"] = i + 1  # Assign an incremental ID starting from 1
+                dict_review["review"] = all_reviews[i]
+                dict_reviews["reviews"].append(dict_review)
+
+                total_rating += random.uniform(1, 10)
+
+            print(dict_reviews["reviews"][0])
 
         if not dict_reviews:
             return {
@@ -147,14 +134,26 @@ def lambda_handler(event, context):
 
         print(f"SUMMARY: {summary}")
 
-        # Average Rating
+        # Select the best product based on the reviews, summary, and insights
+        best_product, best_review, best_quality_score, best_price_score, best_sentiment_score = select_best_product(dict_reviews["reviews"], None, None)
+
+        # Generate summary only for the best product's reviews
+        best_product_reviews = [review for review in dict_reviews["reviews"] if review['product_id'] == best_product]
+        best_summary = generate_summary_bedrock_general(best_product_reviews)
+
+        # Generate response
         average_rating = round(total_rating / len(all_reviews), 1)
 
         response = {
-            "summary": summary,
+            "summary": best_summary,
             "rating": average_rating, 
             "price": price,
-            "message": f"Summary and insights generated for movie '{movie_name}'."
+            "message": f"Summary and insights generated for movie '{movie_name}'.",
+            "best_product": best_product,
+            "best_review": best_review,
+            "best_quality_score": best_quality_score,
+            "best_price_score": best_price_score,
+            "best_sentiment_score": best_sentiment_score
         }
 
         print("RESPONSE: ", response)
