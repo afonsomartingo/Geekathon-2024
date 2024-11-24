@@ -1,6 +1,6 @@
-# UpFrontAI
+# UpfrontAI
 
-UpFrontAI is an innovative serverless application designed to assist users in comparing movies based on ratings, prices, and other metrics. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), RevAIwer provides insightful summaries and scores for movies based on both critic and audience reviews.
+UpfrontAI is an innovative serverless application designed to assist users in comparing movies based on ratings, prices, and other metrics developed for the geekathon2024. By leveraging state-of-the-art AI techniques such as Retrieval-Augmented Generation (RAG), prompt engineering, and large language models (LLMs), UpfrontAI provides insightful summaries and scores for movies based on reviews.
 
 ---
 
@@ -32,7 +32,7 @@ UpFrontAI is an innovative serverless application designed to assist users in co
    - Scrapes reviews for selected movies from Rotten Tomatoes (critic and audience).
 
 2. **Summary Generation:**
-   - Uses AI to craft detailed summaries and provide ratings based on storytelling, acting, visuals, and direction.
+   - Uses AI to craft detailed summaries and ratings based on storytelling, acting, visuals, and direction.
 
 3. **Scoring System:**
    - Combines Quality, Price, and Sentiment Scores to evaluate each movie.
