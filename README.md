@@ -68,8 +68,8 @@ UpfrontAI is an innovative serverless application designed to assist users in co
 ## 📱 Screenshots
 
 <p align="center">
-  <img src="./screenshots/beforeSearch.jpeg" alt="Landing Screen" width="200"/>
-  <img src="./screenshots/afterSearch.jpeg" alt="After Search" width="200"/>
+  <img src="./screenshots/beforeSearch.png" alt="Landing Screen" width="200"/>
+  <img src="./screenshots/afterSearch.png" alt="After Search" width="200"/>
 </p>
 
 
