@@ -87,6 +87,22 @@ UpfrontAI is an innovative serverless application designed to assist users in co
    git clone https://github.com/your-repo/revaiwer.git
    cd revaiwer/backend
 
+
+## How to run app
+
+### Run the app
+
+To run the application, follow these steps:
+
+```bash
+cd front_end
+npm install
+npm run dev
+```
+
+
+
+
 License
 This project is licensed under the MIT License. Feel free to use and modify the application.
 
