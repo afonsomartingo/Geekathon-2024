@@ -103,8 +103,8 @@ npm run dev
 Once in the app search for a specific movie using _ as spaces (For example "now_you_see_me", "avengers_endgame")
 Or find the best movie from a collective of films separated by "," (For example "now_you_see_me,avengers_endgame")
 
-License
+### License
 This project is licensed under the MIT License. Feel free to use and modify the application.
 
-Contact
+### Contact
 For inquiries, reach out to Afonso Carvalho or Diogo Gouveia.
