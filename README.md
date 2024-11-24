@@ -65,6 +65,14 @@ UpfrontAI is an innovative serverless application designed to assist users in co
 - Enhance scoring algorithms with advanced ML models.
 ---
 
+## 📱 Screenshots
+
+<p align="center">
+  <img src="./screenshots/beforeSearch.jpeg" alt="Landing Screen" width="200"/>
+  <img src="./screenshots/afterSearch.jpeg" alt="After Search" width="200"/>
+</p>
+
+
 ## Installation
 
 ### Prerequisites
